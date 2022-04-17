@@ -5,12 +5,16 @@
   "description": "The two missing object methods we always need.",
   "version": "1.0.0",
   "license": "MIT",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://git@github.com:stagas/pick-omit.git"
   },
-  "keywords": [],
+  "keywords": [
+    "pick",
+    "omit",
+    "object",
+    "properties"
+  ],
   "types": "./dist/types/index.d.ts",
   "module": "dist/esm/index.js",
   "main": "dist/cjs/index.js",
