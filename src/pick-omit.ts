@@ -1,9 +1,27 @@
-export type Key = string | number | symbol
+import { NonNull, ObjectFromList } from 'everyday-types'
 
-// https://stackoverflow.com/a/67942573
-export type ObjectFromList<T extends ReadonlyArray<Key>, V = Key> = {
-  [K in (T extends ReadonlyArray<infer U> ? U : never)]: V
-}
+export type ObjectFilterFn = (entry: [string, unknown]) => boolean
+
+/**
+ * Filter object with filter function `fn`.
+ *
+ * @param obj Object to filter.
+ * @param fn Filter function receiving [key, value].
+ * @returns A new object filtered.
+ */
+export const filter = <T>(obj: T, fn: ObjectFilterFn): Partial<T> =>
+  Object.fromEntries(
+    Object.entries(obj).filter(fn)
+  ) as Partial<T>
+
+/**
+ * Filter out nullish values from object.
+ *
+ * @param obj Object to filter.
+ * @returns A new object without the null values.
+ */
+export const nonNull = <T>(obj: T): Pick<T, keyof NonNull<T>> =>
+  filter(obj, ([, value]) => value != null) as Pick<T, keyof NonNull<T>>
 
 /**
  * Pick properties from an object into a new object.
